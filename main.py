@@ -15,7 +15,7 @@ st.markdown("Upload your resume and get AI-powered feedback tailored to your nee
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 uploaded_file = st.file_uploader("Upload your resume (PDF or TXT )", type=["pdf", "txt"])
-job_role = st.text_input("Enter the job role yor are targetting (optional)")
+job_role = st.text_input("Enter the job role you are targetting (optional)")
 
 analyze = st.button("Analyze Resume")
 
@@ -62,8 +62,7 @@ if analyze and uploaded_file:
             temperature=0.7,
             max_tokens=1000     
             )
-
-        st.markdown('### Analysis Results')
+        
         st.markdown(response.choices[0].message.content)
         
     except Exception as e:
