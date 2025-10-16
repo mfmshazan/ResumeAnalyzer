@@ -44,20 +44,27 @@ if analyze and uploaded_file:
         1. Content clarity and impact
         2. Skills presentations
         3. Experience descriptions
-        4. Specific improvement for {job_role if job_role else 'general job applications'}
+        4. Tailored recommendations for improvement based on the target job role: {job_role if job_role else 'general job applications'}
+        5. Suggestions for quantifiable achievements, stronger action verbs, and ATS (Applicant Tracking System) optimization
 
         Resume contentL
         {file_content}
 
-        Please provide your analysis in a clear ,structured format with specific recommadtions"""
+        Please structure your analysis with clear sections and actionable recommendations for each area"""
 
         client = OpenAI(api_key=OPENAI_API_KEY)
         response = client.chat.completions.create(
             model="gpt-4o-mini",
-            messages=[
+            messages = [
                  {"role": "system", "content":"You are an expert resume reviwer with years of experience in HR and recruiment."},
                  {"role": "user", "content": prompt}
-            ]          
-             )     
+            ],     
+            temperature=0.7,
+            max_tokens=1000     
+            )
+
+        st.markdown('### Analysis Results')
+        st.markdown(response.choices[0].message.content)
         
-    except:   
+    except Exception as e:
+         st.error(f"An error occured: {str(e)}")   
