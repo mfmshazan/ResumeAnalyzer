@@ -75,7 +75,8 @@ def get_ai_response(prompt, model_choice, system_message="You are an expert resu
                 return "Error: Gemini API key not found. Please add it to your .env file."
             
             genai.configure(api_key=GEMINI_API_KEY)
-            model = genai.GenerativeModel('gemini-pro')
+            # Use the stable Gemini 2.5 Flash model
+            model = genai.GenerativeModel('models/gemini-2.5-flash')
             full_prompt = f"{system_message}\n\n{prompt}"
             response = model.generate_content(full_prompt)
             return response.text
